@@ -1,2 +1,2 @@
 #!/bin/sh
-git status -s --ignored | grep '!!' | cut -d'!' -f2
+git ls-files --others --ignored --exclude-standard
