@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #define TRUE 1
 #define FALSE 0
 
@@ -33,9 +32,9 @@ void	print_hex(char c)
 	{
 		tmp = c % 16;
 		if (tmp < 10)
-			tmp += 48;
+			tmp += '0';
 		else
-			tmp += 87;
+			tmp += 'a' - 10;
 		buffer[i++] = tmp;
 		c /= 16;
 	}
