@@ -14,15 +14,17 @@
 
 void	ft_putchar(char c);
 
-void	print(char f_char, char m_char, int x)
+void	print(char f_char, char m_char, char l_char, int x)
 {
 	int	i;
 
 	i = 0;
 	while (i < x)
 	{
-		if (i == 0 || i == x -1)
+		if (i == 0)
 			ft_putchar(f_char);
+		else if (i == x - 1)
+			ft_putchar(l_char);
 		else
 			ft_putchar(m_char);
 		i++;
@@ -39,10 +41,12 @@ void	rush(int x, int y)
 	j = 0;
 	while (j < y)
 	{
-		if (j == 0 || j == y - 1)
-			print('o', '-', x);
+		if (j == 0)
+			print('/', '*', '\\', x);
+		else if (j == y - 1)
+			print('\\', '*', '/', x);
 		else
-			print('|', ' ', x);
+			print('*', ' ', '*', x);
 		j++;
 	}
 }
