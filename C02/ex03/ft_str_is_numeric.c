@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_numeric.c                                    :+:      :+:    :+:   */
+/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 08:29:49 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/08/29 08:37:18 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:42:42 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define TRUE 1
-#define FALSE 0
-
 int	ft_str_is_numeric(char *str)
 {
-	int		i;
+	int	i;
 
 	if (!str)
-		return (TRUE);
+	{
+		return (1);
+	}
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (FALSE);
+		if (!(str[i] >= '0' && str[i] <= '9'))
+		{
+			return (0);
+		}
 		i++;
 	}
-	return (TRUE);
+	return (1);
 }

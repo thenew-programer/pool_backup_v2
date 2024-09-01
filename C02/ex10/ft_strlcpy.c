@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:13:50 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/08/30 09:29:37 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/01 15:45:40 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ unsigned	int	ft_strlcpy(char *dest, char *src, unsigned int size)
 	if (srclen + 1 < size)
 	{
 		i = 0;
-		while (i < srclen + 1)
+		while (i <= srclen)
 		{
 			dest[i] = src[i];
 			i++;
@@ -38,7 +38,7 @@ unsigned	int	ft_strlcpy(char *dest, char *src, unsigned int size)
 	else if (size != 0)
 	{
 		i = 0;
-		while (i < size)
+		while (i < size - 1)
 		{
 			dest[i] = src[i];
 			i++;

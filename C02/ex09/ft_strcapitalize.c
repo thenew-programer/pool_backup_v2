@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:58:56 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/08/29 12:05:40 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/01 16:01:24 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	is_lowercase(char c)
 
 int	is_symbol(char c)
 {
-	if (c >= ' ' && c <= '/')
+	if ((c >= ' ' && c <= '/') || (c >= ':' && c <= '@')
+		|| (c >= '[' && c <= '`') || (c >= '{' && c <= '~'))
 		return (TRUE);
 	return (FALSE);
 }
@@ -51,7 +52,8 @@ char	*ft_strcapitalize(char *str)
 		}
 		else
 		{
-			if (is_alpha(str[i]) && !is_lowercase(str[i]))
+			if (!is_symbol(str[i - 1]) && is_alpha(str[i])
+				&& !is_lowercase(str[i]))
 				str[i] += 32;
 		}
 		i++;
