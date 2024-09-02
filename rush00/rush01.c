@@ -36,8 +36,17 @@ void	rush(int x, int y)
 {
 	int	j;
 
-	if (x <= 0 || y <= 0)
+	if (x < 0 || y < 0)
+	{
+		write(2, "Ho Ho How, we don't accept negatives in geometry\n", 49);
 		return ;
+	}
+	if (x == 0 || y == 0)
+	{
+		write(2, "Oh common now. don't use 0 because it represent nothing.\n",
+			57);
+		return ;
+	}
 	j = 0;
 	while (j < y)
 	{
