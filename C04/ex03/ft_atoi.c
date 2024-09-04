@@ -57,7 +57,7 @@ char	*get_signs(char *str, char *buffer)
 	}
 	while (str[i] != '\0')
 	{
-		if (str[i] == '+' || str[i] <= '-')
+		if (str[i] == '+' || str[i] == '-')
 			buffer[buf_idx++] = str[i++];
 		else
 			break ;
@@ -79,9 +79,7 @@ int	evaluate_signs(char *signs)
 			s_len++;
 		i++;
 	}
-	if (s_len % 2 == 1)
-		return (TRUE);
-	return (FALSE);
+	return (s_len % 2);
 }
 
 int	convert_str_nbr(char *numbers, int is_negative)
@@ -109,13 +107,10 @@ int	ft_atoi(char *str)
 	char	signs[MAX_SIZE];
 	char	numbers[MAX_SIZE];
 
-	result = 10;
 	is_negative = 0;
-	if (get_numbers(str, numbers)[0] == '\0')
-		return (FALSE);
 	get_signs(str, signs);
 	is_negative = evaluate_signs(signs);
-	if (is_negative == ERROR)
+	if (get_numbers(str, numbers)[0] == '\0')
 		return (FALSE);
 	result = convert_str_nbr(numbers, is_negative);
 	return (result);
