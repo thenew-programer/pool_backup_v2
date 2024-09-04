@@ -13,7 +13,7 @@
 #include <unistd.h>
 #define TRUE 1
 #define FALSE 0
-#define INT_MIN -2147483648
+#define C_INT_MIN -2147483648
 
 void	ft_putchar(char c)
 {
@@ -30,8 +30,11 @@ int	is_duplicate(char *str)
 	{
 		j = i + 1;
 		while (str[j] != '\0')
+		{
 			if (str[j] == str[i])
 				return (TRUE);
+			j++;
+		}
 		i++;
 	}
 	return (FALSE);
@@ -49,83 +52,45 @@ int	is_base_valid(char *base)
 	i = 0;
 	while (base[i])
 	{
-		if (base[i] == '-' || base[i] == '+')
+		if (base[i] == '-' || base[i] == '+'
+			|| (base[i] > 0 && base[i] <= 32) || base[i] == 127)
 			return (FALSE);
 		i++;
 	}
-	if (i == 1)
+	if (i < 2)
 		return (FALSE);
 	if (is_duplicate(base))
 		return (FALSE);
 	return (TRUE);
 }
 
-void	convert_base(int nbr, char *base, int base_nbr)
+void	convert_base(int nbr, char *base, int base_len)
 {
+	if (nbr == C_INT_MIN)
+	{
+		ft_putchar('-');
+		convert_base(-(nbr / base_len), base, base_len);
+		convert_base(-(nbr % base_len), base, base_len);
+		return ;
+	}
 	if (nbr < 0)
 	{
 		ft_putchar('-');
-		if (nbr == INT_MIN)
-		{
-			ft_putchar(base[2]);
-			nbr *= -147483648;
-		}
+		nbr *= -1;
 	}
-	if (nbr / 10)
-		convert_base(nbr / base_nbr, base, base_nbr);
-	ft_putchar(base[nbr % base_nbr]);
+	if (nbr / base_len)
+		convert_base(nbr / base_len, base, base_len);
+	ft_putchar(base[nbr % base_len]);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	i;
+	int	base_len;
 
-	i = 0;
-	if (!is_base_valid(base))
+	base_len = 0;
+	if (is_base_valid(base) == FALSE)
 		return ;
-	while (base[i])
-		i++;
-	convert_base(nbr, base, i);
-
-	/**
-	 * check if base is valid
-	 *
-	 * convert nbr to str of base
-	*/
+	while (base[base_len] != '\0')
+		base_len++;
+	convert_base(nbr, base, base_len);
 }
-
-#include <unistd.h>
-#include <limits.h>
-
-void	ft_putnbr_base(int nbr, char *base);
-
-int		main(void)
-{
-	write(1, "42:", 3);
-	ft_putnbr_base(42, "0123456789");
-	write(1, "\n2a:", 4);
-	ft_putnbr_base(42, "0123456789abcdef");
-	write(1, "\n-2a:", 5);
-	ft_putnbr_base(-42, "0123456789abcdef");
-	write(1, "\n0:", 3);
-	ft_putnbr_base(0, "0123456789abcdef");
-	write(1, "\nINT_MAX:", 9);
-	ft_putnbr_base(INT_MAX, "0123456789abcdef");
-	write(1, "\nINT_MAX:", 9);
-	ft_putnbr_base(INT_MAX, "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba9876543210");
-	write(1, "\nINT_MIN:", 9);
-	ft_putnbr_base(INT_MIN, "0123456789abcdef");
-	write(1, "\n-2143247366 : ", 15);
-	ft_putnbr_base(INT_MIN + 4236282, "'~");
-	write(1, "\n-1:", 4);
-	ft_putnbr_base(-1, "0123456789abcdef");
-	write(1, "\n:", 2);
-	ft_putnbr_base(42, "");
-	write(1, "\n:", 2);
-	ft_putnbr_base(42, "0");
-	write(1, "\n:", 2);
-	ft_putnbr_base(42, "+-0123456789abcdef");
-	write(1, "\n:", 2);
-	ft_putnbr_base(42, "\v0123456789abcdef");
-}
-
