@@ -18,8 +18,8 @@
 char	helper(int value, int place)
 {
 	if (place == RIGHT)
-		return (char)(value / 10 + '0');
-	return (char)(value % 10 + '0');
+		return ((char)(value / 10 + '0'));
+	return ((char)(value % 10 + '0'));
 }
 
 void	ft_putchar(char c)
