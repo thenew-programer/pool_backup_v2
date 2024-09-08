@@ -5,113 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 14:52:37 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/03 15:08:27 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/09/08 11:52:50 by ybouryal          #+#    #+#             */
+/*   Updated: 2024/09/08 12:01:28 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define MAX_SIZE 2048
-#define ERROR -1
+#include <limits.h>
 #define TRUE 1
 #define FALSE 0
 
-char	*get_numbers(char *str, char *buffer)
+int	is_space(char c)
 {
-	int	i;
-	int	buf_idx;
-
-	i = 0;
-	buf_idx = 0;
-	while (str[i] != '\0')
-	{
-		if (!(str[i] == ' ' || str[i] == '\n' || str[i] == '\r'
-				|| str[i] == '\v' || str[i] == '\f' || str[i] == '\t'
-				|| str[i] == '+' || str[i] == '-'))
-			break ;
-		i++;
-	}
-	while (str[i] != '\0')
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			buffer[buf_idx++] = str[i++];
-		else
-			break ;
-	}
-	buffer[buf_idx] = '\0';
-	return (buffer);
-}
-
-char	*get_signs(char *str, char *buffer)
-{
-	int	i;
-	int	buf_idx;
-
-	i = 0;
-	buf_idx = 0;
-	while (str[i] != '\0')
-	{
-		if (!(str[i] == ' ' || str[i] == '\n' || str[i] == '\r'
-				|| str[i] == '\v' || str[i] == '\f' || str[i] == '\t'))
-			break ;
-		i++;
-	}
-	while (str[i] != '\0')
-	{
-		if (str[i] == '+' || str[i] == '-')
-			buffer[buf_idx++] = str[i++];
-		else
-			break ;
-	}
-	buffer[buf_idx] = '\0';
-	return (buffer);
-}
-
-int	evaluate_signs(char *signs)
-{
-	int	i;
-	int	s_len;
-
-	i = 0;
-	s_len = 0;
-	while (signs[i])
-	{
-		if (signs[i] == '-')
-			s_len++;
-		i++;
-	}
-	return (s_len % 2);
-}
-
-int	convert_str_nbr(char *numbers, int is_negative)
-{
-	int	result;
-	int	i;
-
-	i = 0;
-	result = 0;
-	while (numbers[i] != '\0')
-	{
-		result *= 10;
-		result += numbers[i] - '0';
-		i++;
-	}
-	if (is_negative == TRUE)
-		result *= -1;
-	return (result);
+	if (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\r' || c == '\f' || c == '\v')
+		return (TRUE);
+	return (FALSE);
 }
 
 int	ft_atoi(char *str)
 {
-	int		result;
-	int		is_negative;
-	char	signs[MAX_SIZE];
-	char	numbers[MAX_SIZE];
+	int		i;
+	int		m_sign;
+	long	result;
 
-	is_negative = 0;
-	get_signs(str, signs);
-	is_negative = evaluate_signs(signs);
-	if (get_numbers(str, numbers)[0] == '\0')
-		return (FALSE);
-	result = convert_str_nbr(numbers, is_negative);
-	return (result);
+	i = 0;
+	result = 0;
+	m_sign = 0;
+	while (is_space(str[i]) && str[i])
+		i++;
+	while ((str[i] == '+' || str[i] == '-') && str[i])
+	{
+		if (str[i] == '-')
+			m_sign++;
+		i++;
+	}
+	while ((str[i] >= '0' && str[i] <= '9') && str[i])
+		result = (result * 10) + (str[i++] - '0');
+	if (m_sign % 2)
+		result *= -1;
+	if (result < INT_MIN || result > INT_MAX)
+		return (0);
+	return ((int)result);
 }
