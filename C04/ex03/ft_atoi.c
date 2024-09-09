@@ -43,7 +43,5 @@ int	ft_atoi(char *str)
 		result = (result * 10) + (str[i++] - '0');
 	if (m_sign % 2)
 		result *= -1;
-	if (result < INT_MIN || result > INT_MAX)
-		return (0);
-	return ((int)result);
+	return (result);
 }
