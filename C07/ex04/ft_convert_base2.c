@@ -6,14 +6,12 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 20:41:25 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/08 20:41:40 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:34:10 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #define TRUE 1
 #define FALSE 0
-#define C_INT_MIN -2147483648
 #define ERROR -1
 
 int	g_buf_index = 0;
@@ -50,15 +48,8 @@ int	is_base_valid(char *base)
 	return (i + 1);
 }
 
-void	_convert_base(int nbr, char *base, int base_len, char *buffer)
+void	_convert_base(long long nbr, char *base, int base_len, char *buffer)
 {
-	if (nbr == C_INT_MIN)
-	{
-		buffer[g_buf_index++] = '-';
-		_convert_base(-(nbr / base_len), base, base_len, buffer);
-		_convert_base(-(nbr % base_len), base, base_len, buffer);
-		return ;
-	}
 	if (nbr < 0)
 	{
 		buffer[g_buf_index++] = '-';
@@ -69,13 +60,11 @@ void	_convert_base(int nbr, char *base, int base_len, char *buffer)
 	buffer[g_buf_index++] = base[nbr % base_len];
 }
 
-char	*convert_base(int nbr, char *base, char *buffer)
+char	*convert_base(long long nbr, char *base, char *buffer)
 {
 	int	base_len;
 
 	base_len = is_base_valid(base);
-	if (base_len == ERROR || base_len < 2)
-		return (NULL);
 	while (base[base_len] != '\0')
 		base_len++;
 	_convert_base(nbr, base, base_len, buffer);

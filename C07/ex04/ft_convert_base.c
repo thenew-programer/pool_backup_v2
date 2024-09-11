@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:03:48 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/08 20:54:30 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:33:49 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define FALSE 0
 #define ERROR -1
 
-char	*convert_base(int nbr, char *base, char *buffer);
+char	*convert_base(long long nbr, char *base, char *buffer);
 int		is_base_valid(char *base);
 int		is_space(char c);
 
@@ -34,10 +34,10 @@ int	ft_strchar(char *str, char c)
 	return (ERROR);
 }
 
-int	_atoi_base(char *str, char *base, int index, int base_len)
+long long	_atoi_base(char *str, char *base, int index, int base_len)
 {
-	int	tmp;
-	int	result;
+	int			tmp;
+	long long	result;
 
 	result = 0;
 	while (str[index])
@@ -51,17 +51,15 @@ int	_atoi_base(char *str, char *base, int index, int base_len)
 	return (result);
 }
 
-int	ft_atoi_base(char *str, char *base)
+long long	ft_atoi_base(char *str, char *base)
 {
-	int	i;
-	int	m_sign;
-	int	result;
-	int	base_len;
+	int			i;
+	int			m_sign;
+	long long	result;
+	int			base_len;
 
 	result = 0;
 	base_len = is_base_valid(base);
-	if (base_len == ERROR || base_len < 2)
-		return (result);
 	i = 0;
 	m_sign = 0;
 	while (is_space(str[i]) && str[i])
@@ -75,7 +73,7 @@ int	ft_atoi_base(char *str, char *base)
 	return (result);
 }
 
-int	get_num_len(int nbr, char *base)
+int	get_num_len(long long nbr, char *base)
 {
 	int	base_len;
 	int	num_len;
@@ -99,9 +97,9 @@ int	get_num_len(int nbr, char *base)
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	int		dec_nbr;
-	char	*base_to_nbr;
-	int		tmp;
+	long long		dec_nbr;
+	char			*base_to_nbr;
+	int				tmp;
 
 	tmp = is_base_valid(base_from);
 	if (tmp == ERROR || tmp < 2)
@@ -110,8 +108,12 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	if (tmp == ERROR || tmp < 2)
 		return (NULL);
 	dec_nbr = ft_atoi_base(nbr, base_from);
-	if (dec_nbr == 0)
+	if (dec_nbr == ERROR)
 		return (NULL);
+	if (dec_nbr >= INT_MAX)
+		dec_nbr = INT_MAX;
+	if (dec_nbr <= INT_MIN)
+		dec_nbr = INT_MIN;
 	base_to_nbr = (char *)malloc(sizeof(char) * get_num_len(dec_nbr, base_to));
 	if (!base_to_nbr)
 		return (NULL);
@@ -124,6 +126,22 @@ int main(void)
 {
 	char *nbr = "1337";
 	char *base_10 = "0123456789";
+	char *base_16 = "0123456789ABCDEF";
+	char *base_8 = "01234567";
+	char *base_2 = "01";
+	char *base_5 = "01234";
+	char *base_2_ = "'~";
+	char *base_6 = "'/\"?!6";
 	char *base_invalid = "1";
-	printf("%s\n", ft_convert_base(nbr, base_10, base_invalid));
-}*/
+
+	printf("null : %s\n", ft_convert_base(nbr, base_10, base_invalid));
+	printf("1337 : %s\n", ft_convert_base(nbr, base_10, base_10));
+	printf("539 : %s\n", ft_convert_base(nbr, base_10, base_16));
+	printf("2471 : %s\n", ft_convert_base(nbr, base_10, base_8));
+	printf("10100111001 : %s\n", ft_convert_base(nbr, base_10, base_2));
+	printf("~'~''~~~''~ : %s\n", ft_convert_base(nbr, base_10, base_2_));
+	printf("20322 : %s\n", ft_convert_base(nbr, base_10, base_5));
+	printf("/'/'6 : %s\n", ft_convert_base(nbr, base_10, base_6));
+	return (0);
+}
+*/

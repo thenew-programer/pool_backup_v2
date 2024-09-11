@@ -36,7 +36,7 @@ unsigned long	get_length(int size, char **strs, char *sep)
 		len += (unsigned int)ft_strlen(strs[i]);
 		i++;
 	}
-	len += ft_strlen(sep) * (size - 1);
+	len += (ft_strlen(sep) * (size - 1));
 	return (len);
 }
 
@@ -49,9 +49,9 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 	j = 0;
 	while (dest[i])
 		i++;
-	if (!src || !*src)
+	if (!src || src[0] == 0)
 		return (0);
-	while (src[j] && i < size)
+	while (src[j] && i < size - 1)
 	{
 		dest[i + j] = src[j];
 		j++;
@@ -66,6 +66,12 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	char			*str;
 	int				i;
 
+	if (size == 0)
+	{
+		str = (char *)malloc(sizeof(char));
+		*str = 0;
+		return (str);
+	}
 	len = get_length(size, strs, sep);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
@@ -74,9 +80,10 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	i = 0;
 	while (i < size)
 	{
-		ft_strlcat(str, strs[i], len);
-		if (i != size - 1)
-			ft_strlcat(str, sep, len);
+		if (strs[i])
+			ft_strlcat(str, strs[i], len + 1);
+		if (i != size - 1 && sep)
+			ft_strlcat(str, sep, len + 1);
 		i++;
 	}
 	return (str);
