@@ -1,29 +1,29 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I./$(INCLUDE_DIR)
-ARFLAGS = -rcs
+CFLAGS = -Wall -Wextra -Werror -I$(HEADER_DIR)
 
 SRCS_DIR = srcs
-INCLUDE_FILE = includes/ft.h
+HEADER_DIR = includes
 
+HEADER = $(HEADER_DIR)/ft.h
 SRCS = $(SRCS_DIR)/ft_putchar.c $(SRCS_DIR)/ft_swap.c $(SRCS_DIR)/ft_putstr.c $(SRCS_DIR)/ft_strlen.c $(SRCS_DIR)/ft_strcmp.c
 OBJS = $(SRCS:.c=.o)
 
 TARGET = libft.a
 
-all:$(TARGET)
+all: $(TARGET)
 
-$(TARGET):$(OBJS)
-	ar $(ARFLAGS) $@ $^
+$(TARGET): $(OBJS)
+	ar rcsv $@ $^
 
-%.o:$(SRCS)/%.c
+$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f $(SRCS_DIR)/*.o
+	rm -rf $(OBJS)
 
 fclean: clean
-	rm -f *.a
+	rm -rf $(TARGET)
 
 re: fclean all
 
-.PHONY: all re clean fclean
+.PHONY: $(TARGET) all clean fclean re

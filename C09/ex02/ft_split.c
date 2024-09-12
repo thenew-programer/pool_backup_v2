@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 int	ft_strchar(char *str, char c)
@@ -97,16 +96,3 @@ char	**ft_split(char *str, char *charset)
 	}
 	return (ft_strscpy(str, charset, strs));
 }
-/*
-int main()
-{
-	char *str = " hello my,friend  how are u?I wanna Ask"
-		" u something.Respond Back ASAP.  ";
-	char **strs;
-
-	printf("str => %s\n", str);
-	strs = ft_split(str, " ,.?");
-	for (int i = 0; strs[i]; i++)
-		printf("- %s\n", strs[i]);
-	return (0);
-}*/
