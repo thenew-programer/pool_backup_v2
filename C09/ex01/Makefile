@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(HEADER_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
 
 SRCS_DIR = srcs
 HEADER_DIR = includes
@@ -16,7 +16,7 @@ $(TARGET): $(OBJS)
 	ar rcsv $@ $^
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
