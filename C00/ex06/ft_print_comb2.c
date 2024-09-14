@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#define MAX 9
-#define RIGHT 1
-#define LEFT 0
-
-char	helper(int value, int place)
-{
-	if (place == RIGHT)
-		return ((char)(value / 10 + '0'));
-	return ((char)(value % 10 + '0'));
-}
 
 void	ft_putchar(char c)
 {
@@ -38,11 +28,11 @@ void	ft_print_comb2(void)
 		j = i + 1;
 		while (j <= 99)
 		{
-			ft_putchar(helper(i, RIGHT));
-			ft_putchar(helper(i, LEFT));
+			ft_putchar((i / 10) + '0');
+			ft_putchar((i % 10) + '0');
 			ft_putchar(' ');
-			ft_putchar(helper(j, RIGHT));
-			ft_putchar(helper(j, LEFT));
+			ft_putchar((j / 10) + '0');
+			ft_putchar((j % 10) + '0');
 			if (!(i == 98 && j == 99))
 				write(1, ", ", 2);
 			j++;
