@@ -32,12 +32,12 @@ int	is_duplicate(char *str)
 		while (str[j] != '\0')
 		{
 			if (str[j] == str[i])
-				return (TRUE);
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (FALSE);
+	return (0);
 }
 
 /**
@@ -50,18 +50,24 @@ int	is_base_valid(char *base)
 	int	i;
 
 	i = 0;
-	while (base[i])
+	while (base[i] != '\0')
 	{
 		if (base[i] == '-' || base[i] == '+'
 			|| (base[i] > 0 && base[i] <= 32) || base[i] == 127)
-			return (FALSE);
+		{
+			return (0);
+		}
 		i++;
 	}
 	if (i < 2)
-		return (FALSE);
-	if (is_duplicate(base))
-		return (FALSE);
-	return (TRUE);
+	{
+		return (0);
+	}
+	if (is_duplicate(base) == 1)
+	{
+		return (0);
+	}
+	return (1);
 }
 
 void	convert_base(int nbr, char *base, int base_len)
@@ -88,7 +94,7 @@ void	ft_putnbr_base(int nbr, char *base)
 	int	base_len;
 
 	base_len = 0;
-	if (is_base_valid(base) == FALSE)
+	if (is_base_valid(base) == 0)
 		return ;
 	while (base[base_len] != '\0')
 		base_len++;
