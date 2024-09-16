@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:43:34 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/16 15:57:09 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:24:41 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	ft_atoi(char *str)
 		result += str[i] - '0';
 		i++;
 	}
-	return (result);
+	return (result * sign);
 }
