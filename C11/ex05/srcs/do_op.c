@@ -12,7 +12,7 @@
 
 #include "do_op.h"
 
-int	testing(char *n1, char *n2, int ope, int *nb)
+int	check_div_mod(char *n1, char *n2, int ope, int *nb)
 {
 	nb[0] = ft_atoi(n1);
 	nb[1] = ft_atoi(n2);
@@ -42,7 +42,7 @@ void	do_op(char *n1, char *op, char *n2)
 	ope = get_ope(op);
 	if (ope != -1)
 	{
-		if (testing(n1, n2, ope, nb) != 0)
+		if (check_div_mod(n1, n2, ope, nb) != 0)
 			ft_putnbr(tab[ope](nb[0], nb[1]));
 		ft_putchar('\n');
 	}

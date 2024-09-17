@@ -10,22 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define TRUE 1
+#define FALSE 0
+
 void	ft_advanced_sort_string_tab(char **tab, int (*cmp)(char *, char *))
 {
 	int		i;
-	int		end;
+	int		sorted;
 	char	*tmp;
 
-	end = 0;
-	while (end == 0)
+	sorted = FALSE;
+	while (sorted == FALSE)
 	{
-		end = 1;
+		sorted = TRUE;
 		i = -1;
 		while (tab[++i + 1])
 		{
 			if ((*cmp)(tab[i], tab[i + 1]) > 0)
 			{
-				end = 0;
+				sorted = FALSE;
 				tmp = tab[i];
 				tab[i] = tab[i + 1];
 				tab[i + 1] = tmp;
