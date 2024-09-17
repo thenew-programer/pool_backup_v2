@@ -15,11 +15,11 @@
 int	ft_atoi(char *str)
 {
 	int		i;
-	int		mult;
-	int		nb;
+	int		sign;
+	int		result;
 
-	mult = 1;
-	nb = 0;
+	sign = 1;
+	result = 0;
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n'
 		|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
@@ -27,14 +27,13 @@ int	ft_atoi(char *str)
 	while (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			mult *= -1;
+			sign *= -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		nb = (nb * 10) + (str[i] - '0');
+		result = (result * 10) + (str[i] - '0');
 		i++;
 	}
-	nb *= mult;
-	return (nb);
+	return (result * sign);
 }
