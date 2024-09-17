@@ -41,8 +41,7 @@ int	do_op(char *nbr1, char *op, char *nbr2)
 	{
 		if (check_div_mod(nbr1, nbr2, operator, values) != 0)
 			ft_putnbr(ops[operator].calc(values[0], values[1]));
-		else
-			ft_putchar('\n');
+		ft_putchar('\n');
 		return (0);
 	}
 	else
