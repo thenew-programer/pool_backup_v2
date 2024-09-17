@@ -21,12 +21,9 @@
 # define M_FILE 2
 
 long long		ft_atoi(char *str);
-void			ft_puterror(char *str);
 void			ft_tail_error(char *input);
 void			ft_tail_header(char *filename);
 void			ft_putstr(char *str);
-void			ft_putchar(char c);
-void			ft_puterror(char *str);
 void			ft_putchar(char c);
 void			read_file(int fd, long long size, long long bytes, int mode);
 int				open_file(char *filename);

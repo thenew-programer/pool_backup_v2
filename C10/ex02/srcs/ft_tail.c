@@ -48,8 +48,6 @@ void	ft_tail(int argc, char **filenames, long long bytes)
 			if (argc > 4)
 				ft_tail_header(filenames[i]);
 			fd = open_file(filenames[i]);
-			if (fd == -1)
-				continue ;
 			read_file(fd, size, bytes, M_FILE);
 			close(fd);
 			if (i != argc - 3)

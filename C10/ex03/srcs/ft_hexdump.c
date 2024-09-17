@@ -12,7 +12,7 @@
 
 #include "ft_hexdump.h"
 
-int		get_file_size(char *filename)
+int	get_file_size(char *filename)
 {
 	char	buffer;
 	int		size;
@@ -32,7 +32,7 @@ int		get_file_size(char *filename)
 		while (read(fd, &buffer, 1) > 0)
 			++size;
 	close(fd);
-	return size;
+	return (size);
 }
 
 void	ft_hexdump(char *str, int size)
@@ -47,7 +47,7 @@ void	ft_hexdump(char *str, int size)
 		write(1, "  ", 2);
 		i = j - 1;
 		while (++i < 16 + j)
-			ft_print_hex(*(str + i), i, size);
+			ft_print_hex(str[i], i, size);
 		i = j - 1;
 		write(1, "|", 1);
 		while (++i < 16 + j && str[i])

@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
-
-void	ft_puterror(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		write(2, &str[i], 1);
-}
+#include "ft_cat.h"
 
 void	ft_cat_error(char *filename)
 {
-	ft_puterror("ft_cat: ");
-	ft_puterror(filename);
-	ft_puterror(": No such file or directory\n");
+	ft_putstr("ft_cat: ");
+	ft_putstr(filename);
+	ft_putstr(": No such file or directory\n");
 }
 
 void	ft_putchar(char c)

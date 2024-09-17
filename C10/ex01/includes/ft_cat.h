@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#ifndef FT_CAT_H
+# define FT_CAT_H
 
 # include <unistd.h>
 # include <fcntl.h>

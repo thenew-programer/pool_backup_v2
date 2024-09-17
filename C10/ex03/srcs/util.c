@@ -21,18 +21,18 @@ char	*ft_strdup_file(char *filename, int size)
 
 	buffer = 0;
 	i = 0;
-	str = malloc(size + 1);
+	str = (char *)malloc(sizeof(char) * (size + 1));
 	fd = open(filename, O_RDONLY);
 	while (read(fd, &buffer, 1) > 0)
 		str[i++] = buffer;
 	str[i] = '\0';
 	close(fd);
-	return str;
+	return (str);
 }
 
 void	ft_print_offset(int n, int i)
 {
-	const char *base;
+	const char	*base;
 
 	base = "0123456789abcdef";
 	if (n / 16 > 0)
@@ -40,20 +40,21 @@ void	ft_print_offset(int n, int i)
 	else if (i < 8)
 		while (++i <= 8)
 			write(1, "0", 1);
-	write(1, base + n % 16, 1);
+	write(1, &base[n % 16], 1);
 }
 
 void	ft_print_hex(char c, int i, int size)
 {
-	const char base[16] = "0123456789abcdef";
+	const char	*base;
 
+	base = "0123456789abcdef";
 	if (i < size)
 	{
-		write(1, base + c / 16, 1);
-		write(1, base + c % 16, 1);
+		write(1, &base[c / 16], 1);
+		write(1, &base[c % 16], 1);
 		write(1, " ", 1);
 	}
-	else 
+	else
 		write(1, "   ", 3);
 	if ((i + 1) % 8 == 0)
 		write(1, " ", 1);
@@ -61,8 +62,8 @@ void	ft_print_hex(char c, int i, int size)
 
 void	ft_print_ascii(char c)
 {
-	if (c >= 32 && c <= 126) 
+	if (c >= 32 && c <= 126)
 		write(1, &c, 1);
-	else 
+	else
 		write(1, ".", 1);
 }

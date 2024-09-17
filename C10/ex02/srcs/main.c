@@ -31,10 +31,7 @@ int	main(int argc, char **argv)
 		{
 			bytes = ft_atoi(argv[i + 1]);
 			if (bytes == -1)
-			{
 				ft_tail_error(argv[i + 1]);
-				return (0);
-			}
 			break ;
 		}
 	}

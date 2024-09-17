@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "ft_cat.h"
 
 int	ft_cat(int size, char **filenames)
 {

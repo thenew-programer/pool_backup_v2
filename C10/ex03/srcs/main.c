@@ -12,7 +12,7 @@
 
 #include "ft_hexdump.h"
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	char	*str;
 	int		i;
@@ -28,5 +28,5 @@ int		main(int argc, char **argv)
 			ft_hexdump(str, size);
 		}
 	}
-	return 0;
+	return (0);
 }

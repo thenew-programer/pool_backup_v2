@@ -19,29 +19,20 @@ void	ft_tail_header(char *filename)
 	ft_putstr(" <==\n");
 }
 
-void	ft_puterror(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		write(2, &str[i], 1);
-}
-
 void	ft_tail_error(char *input)
 {
-	ft_puterror("ft_tail: ");
+	ft_putstr("ft_tail: ");
 	if (errno == 2)
 	{
-		ft_puterror("cannot open '");
-		ft_puterror(input);
-		ft_puterror("' for reading: No such file or directory\n");
+		ft_putstr("cannot open '");
+		ft_putstr(input);
+		ft_putstr("' for reading: No such file or directory\n");
 	}
 	else
 	{
-		ft_puterror("invalid number of bytes: '");
-		ft_puterror(input);
-		ft_puterror("'\n");
+		ft_putstr("invalid number of bytes: '");
+		ft_putstr(input);
+		ft_putstr("'\n");
 	}
 }
 
