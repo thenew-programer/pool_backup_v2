@@ -24,11 +24,6 @@ int	sub(int n1, int n2)
 
 int	div(int n1, int n2)
 {
-	if (n2 == 0)
-	{
-		g_error = DIV_BY_0;
-		return (0);
-	}
 	return (n1 / n2);
 }
 
@@ -39,10 +34,5 @@ int	mul(int n1, int n2)
 
 int	mod(int n1, int n2)
 {
-	if (n2 == 0)
-	{
-		g_error = MOD_BY_0;
-		return (0);
-	}
 	return (n1 % n2);
 }

@@ -10,30 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap(char **ptr1, char **ptr2)
-{
-	char	*tmp;
-
-	tmp = *ptr1;
-	*ptr1 = *ptr2;
-	*ptr2 = tmp;
-}
-
 void	ft_advanced_sort_string_tab(char **tab, int (*cmp)(char *, char *))
 {
-	int	i;
-	int	j;
+	int		i;
+	int		end;
+	char	*tmp;
 
-	i = 0;
-	while (tab[i + 1])
+	end = 0;
+	while (end == 0)
 	{
-		j = i + 1;
-		while (tab[j])
+		end = 1;
+		i = -1;
+		while (tab[++i + 1])
 		{
-			if ((*cmp)(tab[i], tab[j]) > 0)
-				ft_swap(&tab[i], &tab[j]);
-			j++;
+			if ((*cmp)(tab[i], tab[i + 1]) > 0)
+			{
+				end = 0;
+				tmp = tab[i];
+				tab[i] = tab[i + 1];
+				tab[i + 1] = tmp;
+			}
 		}
-		i++;
 	}
 }

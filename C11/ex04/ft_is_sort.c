@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_sort(int *tab, int lenght, int (*f)(int, int))
+int		ft_is_sort(int *tab, int lenght, int (*f)(int, int))
 {
-	int	i;
-	int	j;
+	int		i;
+	int		end;
+	int		start;
 
 	i = 0;
+	end = 0;
+	start = 0;
 	while (i < lenght - 1)
 	{
-		j = i + 1;
-		while (j < lenght)
-		{
-			if ((*f)(tab[i], tab[j]) > 0)
-				return (0);
-			j++;
-		}
+		if ((*f)(tab[i], tab[i + 1]) >= 0)
+			end++;
+		if ((*f)(tab[i], tab[i + 1]) <= 0)
+			start++;
 		i++;
 	}
-	return (1);
+	if (start == i || end == i)
+		return (1);
+	return (0);
 }

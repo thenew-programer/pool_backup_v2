@@ -12,72 +12,56 @@
 
 #include "do_op.h"
 
-int	g_error = 0;
-
-t_calc	get_op(char *op, t_math *ops)
+int	testing(char *n1, char *n2, int ope, int *nb)
 {
-	int	i;
-
-	i = 0;
-	while (ops[i].op != 0)
+	nb[0] = ft_atoi(n1);
+	nb[1] = ft_atoi(n2);
+	if (nb[1] == 0 && (ope == 2 || ope == 4))
 	{
-		if (ops[i].op == op[0])
-			return (ops[i].calc);
-		i++;
+		if (ope == 2)
+			ft_putstr("Stop : division by zero");
+		else
+			ft_putstr("Stop : modulo by zero");
+		return (0);
 	}
-	g_error = INVALID_OP;
-	return (0);
+	else
+		return (1);
 }
 
-int	check_error(void)
+void	do_op(char *n1, char *op, char *n2)
 {
-	if (g_error == INVALID_OP)
+	int		(*tab[5])(int, int);
+	int		ope;
+	int		nb[2];
+
+	tab[0] = add;
+	tab[1] = sub;
+	tab[2] = div;
+	tab[3] = mul;
+	tab[4] = mod;
+	ope = get_ope(op);
+	if (ope != -1)
 	{
-		ft_putstr("operator is not working\n");
-		return (-1);
+		if (testing(n1, n2, ope, nb) != 0)
+			ft_putnbr(tab[ope](nb[0], nb[1]));
+		ft_putchar('\n');
 	}
-	if (g_error == INVALID_NB)
+	else
 	{
-		ft_putstr("numbers are not working\n");
-		return (-1);
+		ft_putnbr(0);
+		ft_putchar('\n');
 	}
-	if (g_error == DIV_BY_0)
-	{
-		ft_putstr("Stop : division by zero\n");
-		return (-1);
-	}
-	if (g_error == MOD_BY_0)
-	{
-		ft_putstr("Stop : division by zero\n");
-		return (-1);
-	}
-	return (1);
 }
 
-void	do_op(char *nb1, char *op, char *nb2)
+int	get_ope(char *op)
 {
-	int		result;
-	t_math	ops[6];
-	int		nbr1;
-	int		nbr2;
-	t_calc	calc;
+	int		i;
+	char	*list;
 
-	ops[0] = (t_math){'+', add};
-	ops[1] = (t_math){'-', sub};
-	ops[2] = (t_math){'*', mul};
-	ops[3] = (t_math){'/', div};
-	ops[4] = (t_math){'%', mod};
-	ops[5] = (t_math){0, 0};
-	nbr1 = ft_atoi(nb1);
-	nbr2 = ft_atoi(nb2);
-	if (check_error() == -1)
-		return ;
-	calc = get_op(op, ops);
-	if (check_error() == -1)
-		return ;
-	result = (*calc)(nbr1, nbr2);
-	if (check_error() == -1)
-		return ;
-	ft_putnbr(result);
-	ft_putchar('\n');
+	list = "+-/*%";
+	i = -1;
+	while (list[++i])
+		if (list[i] == op[0] && op[1] == '\0')
+			return (i);
+	return (-1);
 }

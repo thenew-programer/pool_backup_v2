@@ -15,30 +15,16 @@
 
 # include <unistd.h>
 
-# define INVALID_OP 10
-# define INVALID_NB 11
-# define DIV_BY_0 12
-# define MOD_BY_0 13
-
-extern int	g_error;
-
-typedef int	(*t_calc)(int, int);
-
-typedef struct s_math
-{
-	char	op;
-	t_calc	calc;
-}	t_math;
-
-void	do_op(char *nb1, char *op, char *nb2);
-void	ft_putnbr(int nbr);
+void	do_op(char *n1, char *op, char *n2);
 void	ft_putchar(char c);
+void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
-int		ft_atoi(char *str);
-int		mod(int n1, int n2);
-int		mul(int n1, int n2);
-int		div(int n1, int n2);
+int		get_ope(char *op);
 int		add(int n1, int n2);
 int		sub(int n1, int n2);
+int		div(int n1, int n2);
+int		mul(int n1, int n2);
+int		mod(int n1, int n2);
+int		ft_atoi(char *str);
 
-#endif /* DO_OP_H */
+#endif
