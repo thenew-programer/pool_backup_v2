@@ -25,21 +25,22 @@ long long	get_size(char *filename)
 	while (read(fd, &c, 1) > 0)
 		size++;
 	close(fd);
-	return size;
+	return (size);
 }
 
-int	ft_tail(int argc, char **filenames, long long bytes)
+void	ft_tail(int argc, char **filenames, long long bytes)
 {
 	int			fd;
 	long long	size;
 	int			i;
 
 	if (bytes == 0)
-		return (0);
+		return ;
 	i = 0;
 	while (++i < argc)
 	{
-		if ((filenames[i][0] != '-' && filenames[i][1] != 'c' && filenames[i][2] != 0))
+		if ((filenames[i][0] != '-' && filenames[i][1] != 'c'
+			&& filenames[i][2] != 0))
 		{
 			size = get_size(filenames[i]);
 			if (size == -1)
@@ -55,5 +56,4 @@ int	ft_tail(int argc, char **filenames, long long bytes)
 				ft_putchar('\n');
 		}
 	}
-	return (0);
 }

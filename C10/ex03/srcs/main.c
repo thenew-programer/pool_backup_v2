@@ -5,40 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 17:35:52 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/16 19:05:46 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/09/17 04:12:48 by ybouryal          #+#    #+#             */
+/*   Updated: 2024/09/17 04:13:00 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_tail.h"
+#include "ft_hexdump.h"
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	long long	bytes;
-	int			i;
+	char	*str;
+	int		i;
+	int		size;
 
-	if (argc < 4)
-	{
-		read_file(1, 0, 0, M_STDIN);
-		return (0);
-	}
 	i = 0;
-	bytes = 0;
 	while (++i < argc)
 	{
-		if (argv[i][0] == '-' && argv[i][1] == 'c' && argv[i][2] == 0
-			&& argc >= (i + 1))
+		if (!(*argv[i] == '-' && *(argv[i] + 1) == 'C'))
 		{
-			bytes = ft_atoi(argv[i + 1]);
-			if (bytes == -1)
-			{
-				ft_tail_error(argv[i + 1]);
-				return (0);
-			}
-			break ;
+			size = get_file_size(argv[i]);
+			str = ft_strdup_file(argv[i], size);
+			ft_hexdump(str, size);
 		}
 	}
-	if (bytes != 0)
-		ft_tail(argc, argv, bytes);
-	return (0);
+	return 0;
 }

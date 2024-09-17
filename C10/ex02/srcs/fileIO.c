@@ -16,6 +16,7 @@ void	read_file(int fd, long long size, long long bytes, int mode)
 {
 	char		c;
 	long long	i;
+
 	i = -1;
 	if (mode == M_STDIN)
 	{

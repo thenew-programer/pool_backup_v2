@@ -30,6 +30,6 @@ void			ft_puterror(char *str);
 void			ft_putchar(char c);
 void			read_file(int fd, long long size, long long bytes, int mode);
 int				open_file(char *filename);
-int				ft_tail(int argc, char **filenames, long long bytes);
+void			ft_tail(int argc, char **filenames, long long bytes);
 
 #endif /* FT_TAIL_H */
