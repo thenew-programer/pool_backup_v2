@@ -22,19 +22,23 @@ int	bsq(int size, char **filenames)
 {
 	int	i;
 	char **map;
+	int	**dpm;
 	t_map_pref map_pref;
 
-	i = 1;
-	while (i < size)
+	i = 0;
+	while (++i < size)
 	{
 		init_map_pref(&map_pref);
 		map = file_to_map(filenames[i], &map_pref);
 		if (map == NULL)
+		{
 			ft_putstr("map Error\n");
-		// print_map_pref(map_pref);
+			continue ;
+		}
+		dpm = map_to_dpm(map, &map_pref);
+		map = solve(map, &map_pref);
 		print_map(map, map_pref);
 		ft_putchar('\n');
-		i++;
 	}
 	return (0);
 }

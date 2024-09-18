@@ -29,7 +29,7 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	free_map(void **map, int size)
+void	free_map(char **map, int size)
 {
 	int	i;
 
@@ -40,4 +40,11 @@ void	free_map(void **map, int size)
 		i++;
 	}
 	free(map);
+}
+
+int	is_printable(char c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
 }
