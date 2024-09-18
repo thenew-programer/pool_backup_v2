@@ -112,11 +112,11 @@ char	**solve(char **map, t_map_pref *map_pref)
 	int	i;
 	int	j;
 
-	i = map_pref->square_y - map_pref->dpm_max;
-	while (i < map_pref->square_y)
+	i = map_pref->square_x - map_pref->dpm_max;
+	while (i < map_pref->square_x)
 	{
-		j = map_pref->square_x - map_pref->dpm_max;
-		while (j < map_pref->square_x)
+		j = map_pref->square_y - map_pref->dpm_max;
+		while (j < map_pref->square_y)
 		{
 			map[i][j] = map_pref->full;
 			j++;
