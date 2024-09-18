@@ -48,3 +48,15 @@ int	is_printable(char c)
 		return (1);
 	return (0);
 }
+
+void	ft_puterror(char *err)
+{
+	int	i;
+
+	i = 0;
+	while (err[i])
+	{
+		write(2, &err[i], 1);
+		i++;
+	}
+}

@@ -16,6 +16,7 @@ void	init_map_pref(t_map_pref *map_pref)
 {
 	map_pref->width = 0;
 	map_pref->height = 0;
+	map_pref->errors = MAP_ERROR;
 }
 
 int	bsq(int size, char **filenames)
@@ -23,8 +24,10 @@ int	bsq(int size, char **filenames)
 	int	i;
 	char **map;
 	int	**dpm;
-	t_map_pref map_pref;
+	t_map_pref	map_pref;
+	int			ret;
 
+	ret = 0;
 	i = 0;
 	while (++i < size)
 	{
@@ -32,13 +35,16 @@ int	bsq(int size, char **filenames)
 		map = file_to_map(filenames[i], &map_pref);
 		if (map == NULL)
 		{
-			ft_putstr("map Error\n");
+			if (map_pref.errors == MAP_ERROR)
+				ft_putstr("map Error\n");
+			ret = 1;
 			continue ;
 		}
 		dpm = map_to_dpm(map, &map_pref);
+		print_dpm(dpm, &map_pref);
+		print_map_pref(map_pref);
 		map = solve(map, &map_pref);
 		print_map(map, map_pref);
-		ft_putchar('\n');
 	}
-	return (0);
+	return (ret);
 }

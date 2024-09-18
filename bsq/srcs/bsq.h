@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+# define MAP_ERROR 2
+# define IO_ERROR 3
+
 typedef struct s_map_pref
 {
 	int		height;
@@ -28,11 +31,12 @@ typedef struct s_map_pref
 	char	obstacle;
 	char	empty;
 	char	full;
+	int		errors;
 }	t_map_pref;
 
 /* File IO */
-int		open_file(char *filename);
-void	read_stdin(void);
+int		open_file(char *filename, t_map_pref *map_pref);
+void	read_stdin(char *filename);
 int		is_map_valid(int fd, t_map_pref *map_pref);
 int		get_map_preference(char *filename, t_map_pref *map_pref);
 
@@ -41,12 +45,13 @@ void	ft_putstr(char *str);
 void	ft_putchar(char c);
 void	free_map(char **map, int size);
 int		is_printable(char c);
-int	tri_min(int a, int b, int c);
+int		tri_min(int a, int b, int c);
+void	ft_puterror(char *err);
 
 /* BSQ */
 int		bsq(int size, char **filenames);
 char	**file_to_map(char *filename, t_map_pref *pref);
-char	**fill_map(char **map, char *filename, t_map_pref map_pref);
+char	**fill_map(char **map, char *filename, t_map_pref *map_pref);
 void	print_map(char **map, t_map_pref pref);
 void	print_map_pref(t_map_pref pref);
 

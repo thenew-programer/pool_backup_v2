@@ -13,29 +13,29 @@
 #include "bsq.h"
 
 
-char	**fill_map(char **map, char *filename, t_map_pref map_pref)
+char	**fill_map(char **map, char *filename, t_map_pref *map_pref)
 {
 	int		i;
 	int		fd;
 	char	c;
 
 
-	fd = open_file(filename);
+	fd = open_file(filename, map_pref);
 	if (fd == -1)
 		return (NULL);
 	while (read(fd, &c, 1) > 0)
 		if (c == '\n')
 			break ;
 	i = 0;
-	while (i < map_pref.height)
+	while (i < map_pref->height)
 	{
-		read(fd, map[i], map_pref.width);
+		read(fd, map[i], map_pref->width);
 		i++;
 	}
 	i = 0;
-	while (i < map_pref.height)
+	while (i < map_pref->height)
 	{
-		map[i][map_pref.width - 1] = '\0';
+		map[i][map_pref->width - 1] = '\0';
 		i++;
 	}
 	return (map);
@@ -93,7 +93,7 @@ char	**file_to_map(char *filename, t_map_pref *map_pref)
 		map[i] = (char *)malloc(sizeof(char) * (map_pref->width));
 		i++;
 	}
-	map = fill_map(map, filename, *map_pref);
+	map = fill_map(map, filename, map_pref);
 	if (is_map_char_valid(map, *map_pref) == 0)
 	{
 		free_map(map, map_pref->height);

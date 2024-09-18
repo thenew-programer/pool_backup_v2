@@ -14,10 +14,15 @@
 
 int	main(int argc, char **argv)
 {
+	char	*tmp_file[2];
+
+	tmp_file[1] = "/tmp/bsq.txt";
 	if (argc == 1)
-		read_stdin();
-	else
 	{
-		bsq(argc, argv);
+		read_stdin(tmp_file[1]);
+		bsq(2, tmp_file);
 	}
+	else
+		return (bsq(argc, argv));
+	return (0);
 }

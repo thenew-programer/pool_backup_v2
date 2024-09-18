@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "bsq.h"
+#include <sys/fcntl.h>
 
-int	open_file(char *filename)
+int	open_file(char *filename, t_map_pref *map_pref)
 {
 	int	fd;
 
@@ -22,6 +23,7 @@ int	open_file(char *filename)
 		ft_putstr("bsq : ");
 		ft_putstr(filename);
 		ft_putstr(": No such file or directory\n");
+		map_pref->errors = IO_ERROR;
 		return (-1);
 	}
 	return (fd);
@@ -32,7 +34,7 @@ int	get_map_preference(char *filename, t_map_pref *map_pref)
 	int		fd;
 	char	c;
 
-	fd = open_file(filename);
+	fd = open_file(filename, map_pref);
 	if (fd == -1)
 		return (-1);
 	while (read(fd, &c, 1) > 0)
@@ -80,10 +82,16 @@ int	is_map_valid(int fd, t_map_pref *map_pref)
 	return (0);
 }
 
-void	read_stdin(void)
+void	read_stdin(char *filename)
 {
-	char	c;
+	char	buffer[10000];
+	int		i;
+	int		fd;
 
-	while (read(1, &c, 1) > 0)
-		;;
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+	i = 0;
+	while ((read(0, &buffer[i], 1)) > 0)
+		i++;
+	write(fd, buffer, i);
+	close(fd);
 }

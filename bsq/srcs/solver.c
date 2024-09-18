@@ -79,8 +79,8 @@ void	find_square_position(int **dpm, t_map_pref *map_pref)
 		{
 			if (dpm[i][j] == map_pref->dpm_max)
 			{
-				map_pref->square_x = j;
-				map_pref->square_y = i;
+				map_pref->square_x = i;
+				map_pref->square_y = j;
 				break ;
 			}
 			j++;
