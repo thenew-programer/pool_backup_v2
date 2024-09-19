@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:17:25 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/18 13:07:49 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/19 04:28:40 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 void	init_map_pref(t_map_pref *map_pref)
 {
+	map_pref->errors = MAP_ERROR;
 	map_pref->width = 0;
 	map_pref->height = 0;
-	map_pref->errors = MAP_ERROR;
+	map_pref->dpm_max = 0;
+	map_pref->square_x = 0;
+	map_pref->square_y = 0;
 }
 
 int	bsq(int size, char **filenames)
 {
-	int	i;
-	char **map;
-	int	**dpm;
+	int			i;
+	char		**map;
+	int			**dpm;
 	t_map_pref	map_pref;
-	int			ret;
 
-	ret = 0;
 	i = 0;
 	while (++i < size)
 	{
@@ -37,7 +38,6 @@ int	bsq(int size, char **filenames)
 		{
 			if (map_pref.errors == MAP_ERROR)
 				ft_putstr("map Error\n");
-			ret = 1;
 			continue ;
 		}
 		dpm = map_to_dpm(map, &map_pref);
@@ -46,5 +46,5 @@ int	bsq(int size, char **filenames)
 		free_map((void *)dpm, map_pref.height + 1);
 		free_map((void *)map, map_pref.height);
 	}
-	return (ret);
+	return (0);
 }

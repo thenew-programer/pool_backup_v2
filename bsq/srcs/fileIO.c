@@ -6,12 +6,11 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:07:47 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/18 13:13:54 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/09/19 04:27:09 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
-#include <sys/fcntl.h>
 
 int	open_file(char *filename, t_map_pref *map_pref)
 {
@@ -29,17 +28,12 @@ int	open_file(char *filename, t_map_pref *map_pref)
 	return (fd);
 }
 
-int	get_map_preference(char *filename, t_map_pref *map_pref)
+void	read_pref(int fd, t_map_pref *map_pref)
 {
-	int		fd;
-	char	buffer[10];
-	char	c;
 	int		i;
 	int		j;
+	char	buffer[10];
 
-	fd = open_file(filename, map_pref);
-	if (fd == -1)
-		return (-1);
 	i = 0;
 	while (read(fd, &buffer[i], 1) > 0)
 	{
@@ -54,25 +48,22 @@ int	get_map_preference(char *filename, t_map_pref *map_pref)
 	j = 0;
 	while (j < i)
 		map_pref->height = (map_pref->height * 10) + (buffer[j++] - '0');
+}
 
-	// while (read(fd, &c, 1) > 0)
-	// {
-	// 	if (c >= '0' && c <= '9')
-	// 		map_pref->height = (map_pref->height * 10) + (c - '0');
-	// 	else
-	// 	{
-	// 		map_pref->empty = c;
-	// 		break ;
-	// 	}
-	// }
-	// read(fd, &map_pref->obstacle, 1);
-	// read(fd, &map_pref->full, 1);
-	// read(fd, &c, 1);
+int	get_map_preference(char *filename, t_map_pref *map_pref)
+{
+	int		fd;
+	char	c;
+
+	fd = open_file(filename, map_pref);
+	if (fd == -1)
+		return (-1);
+	read_pref(fd, map_pref);
 	while (read(fd, &c, 1) > 0)
 	{
 		map_pref->width++;
 		if (c == '\n')
-			break;
+			break ;
 	}
 	return (fd);
 }
@@ -84,7 +75,7 @@ int	is_map_valid(int fd, t_map_pref *map_pref)
 	int		tmp_width;
 
 	tmp_width = 0;
-	tmp_height = 0;
+	tmp_height = 1;
 	while (read(fd, &c, 1) > 0)
 	{
 		tmp_width++;
@@ -95,21 +86,23 @@ int	is_map_valid(int fd, t_map_pref *map_pref)
 		}
 	}
 	close(fd);
-	if (tmp_height + 1 == map_pref->height && tmp_width == 0)
+	if (tmp_height == map_pref->height && tmp_width == 0)
 		return (1);
 	return (0);
 }
 
 void	read_stdin(char *filename)
 {
-	char	buffer[10000];
+	char	buffer[4096];
 	int		i;
 	int		fd;
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	i = 0;
 	while ((read(0, &buffer[i], 1)) > 0)
+	{
+		write(fd, &buffer[i], 1);
 		i++;
-	write(fd, buffer, i);
+	}
 	close(fd);
 }
