@@ -15,6 +15,10 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
+
+# define BUFFER_SIZE 29952
 
 void	read_file(int fd);
 int		open_file(char *filename);

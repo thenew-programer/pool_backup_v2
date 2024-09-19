@@ -27,7 +27,8 @@ int	open_file(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 3)
 	{
-		ft_cat_error(filename);
+		ft_putstr(strerror(errno));
+		// ft_cat_error(filename);
 		return (-1);
 	}
 	return (fd);

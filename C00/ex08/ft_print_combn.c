@@ -1,44 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cat.c                                           :+:      :+:    :+:   */
+/*   ft_print_combn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 17:40:47 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/09/16 17:51:27 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/09/19 14:40:35 by ybouryal          #+#    #+#             */
+/*   Updated: 2024/09/19 15:45:31 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cat.h"
+#include <unistd.h>
 
-int	ft_cat(int size, char **filenames)
+void	ft_putchar(char c)
 {
-	int		ret;
-	int		i;
-	int		fd;
-	int		bytes_read;
-	char	buffer[BUFFER_SIZE];
+	write(1, &c, 1);
+}
 
-	ret = 0;
+void	ft_puttab(int *tab)
+{
+	int	j;
+
+	j = 0;
+	while (tab[j] != -1)
+		ft_putchar(tab[j++] + '0');
+	ft_putchar('\n');
+}
+void	ft_print_combn(int n)
+{
+	int	tab[10];
+	int	i;
+	int	j;
+
 	i = 0;
-	while (++i < size)
+	while (i < n)
 	{
-		fd = open_file(filenames[i]);
-		if (fd == -1)
-		{
-			ret++;
-			continue ;
-		}
-		while (1)
-		{
-			bytes_read = read(fd, buffer, BUFFER_SIZE);
-			if (bytes_read > 0)
-				write(1, buffer, bytes_read);
-			else
-				break ;
-		}
-		close(fd);
+		tab[i] = i;
+		i++;
 	}
-	return (ret);
+	tab[i] = -1;
+
+	i = n - 1;
+	while (i >= 0)
+	{
+		j = 0;
+		while (tab[i] != 9)
+		{
+			ft_puttab(tab);
+			tab[i--]++;
+		}
+	}
+}
+
+int main()
+{
+	ft_print_combn(4);
 }
