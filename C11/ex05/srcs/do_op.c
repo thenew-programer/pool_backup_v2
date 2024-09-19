@@ -32,10 +32,10 @@ int	do_op(char *nbr1, char *op, char *nbr2)
 	int		values[2];
 
 	ops[0] = (t_math){'+', add};
-	ops[1] = (t_math){'-', add};
-	ops[2] = (t_math){'*', add};
-	ops[3] = (t_math){'/', add};
-	ops[4] = (t_math){'%', add};
+	ops[1] = (t_math){'-', sub};
+	ops[2] = (t_math){'*', mul};
+	ops[3] = (t_math){'/', div};
+	ops[4] = (t_math){'%', mod};
 	operator = check_op(op, ops);
 	if (operator != -1)
 	{
