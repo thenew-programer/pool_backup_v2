@@ -15,17 +15,11 @@
 
 # include <unistd.h>
 
-typedef struct s_math
-{
-	char	op;
-	int		(*calc)(int, int);
-}	t_math;
-
 void	ft_putchar(char c);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 int		do_op(char *n1, char *op, char *n2);
-int		check_op(char *op, t_math *ops);
+int		check_op(char *op);
 int		ft_atoi(char *str);
 int		add(int n1, int n2);
 int		sub(int n1, int n2);

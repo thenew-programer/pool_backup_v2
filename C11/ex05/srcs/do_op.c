@@ -12,54 +12,50 @@
 
 #include "do_op.h"
 
-int	check_div_mod(char *n1, char *n2, int ope, int *values)
+void	init_ops(int (*ops[6])(int, int))
 {
-	values[0] = ft_atoi(n1);
-	values[1] = ft_atoi(n2);
-	if (values[1] == 0 && ope == 3)
-		ft_putstr("Stop : division by zero");
-	else if (values[1] == 0 && ope == 4)
-		ft_putstr("Stop : modulo by zero");
-	else
-		return (1);
-	return (0);
+	ops[0] = add;
+	ops[1] = sub;
+	ops[2] = mul;
+	ops[3] = div;
+	ops[4] = mod;
 }
 
 int	do_op(char *nbr1, char *op, char *nbr2)
 {
-	t_math	ops[6];
-	int		operator;
-	int		values[2];
+	int	(*ops[6])(int, int);
+	int	operator;
+	int	values[2];
 
-	ops[0] = (t_math){'+', add};
-	ops[1] = (t_math){'-', sub};
-	ops[2] = (t_math){'*', mul};
-	ops[3] = (t_math){'/', div};
-	ops[4] = (t_math){'%', mod};
-	operator = check_op(op, ops);
-	if (operator != -1)
-	{
-		if (check_div_mod(nbr1, nbr2, operator, values) != 0)
-			ft_putnbr(ops[operator].calc(values[0], values[1]));
-		ft_putchar('\n');
-		return (0);
-	}
+	init_ops(ops);
+	values[0] = ft_atoi(nbr1);
+	values[1] = ft_atoi(nbr2);
+	operator = check_op(op);
+	if (operator == -1)
+		ft_putstr("0\n");
+	else if (operator == 3 && values[1] == 0)
+		ft_putstr("Stop : division by zero\n");
+	else if (operator == 4 && values[1] == 0)
+		ft_putstr("Stop : modulo by zero\n");
 	else
 	{
-		ft_putnbr(0);
-		ft_putchar('\n');
-		return (operator);
+		ft_putnbr(ops[operator](values[0], values[1]));
+		ft_putstr("\n");
+		return (0);
 	}
+	return (1);
 }
 
-int	check_op(char *op, t_math *ops)
+int	check_op(char *op)
 {
-	int	i;
+	int		i;
+	char	*ops;
 
+	ops = "+-*/%";
 	i = 0;
 	while (i < 5)
 	{
-		if (ops[i].op == op[0] && op[1] == '\0')
+		if (ops[i] == op[0] && op[1] == '\0')
 			return (i);
 		i++;
 	}
