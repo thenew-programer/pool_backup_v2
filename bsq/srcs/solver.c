@@ -72,10 +72,10 @@ void	find_square_position(int **dpm, t_map_pref *map_pref)
 	int	j;
 
 	i = 0;
-	while (i <= map_pref->height)
+	while (i < map_pref->height)
 	{
 		j = 0;
-		while (j < map_pref->width)
+		while (j < map_pref->width + 1)
 		{
 			if (dpm[i][j] == map_pref->dpm_max)
 			{
@@ -121,7 +121,7 @@ char	**solve(char **map, t_map_pref *map_pref)
 			map[i][j] = map_pref->full;
 			j++;
 		}
-	i++;
+		i++;
 	}
 	return (map);
 }

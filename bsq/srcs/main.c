@@ -14,8 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	char	*tmp_file[2];
+	char	**tmp_file;
 
+	tmp_file = malloc(sizeof(char *) * 2);
 	tmp_file[1] = "/tmp/bsq.txt";
 	if (argc == 1)
 	{

@@ -43,7 +43,7 @@ int		get_map_preference(char *filename, t_map_pref *map_pref);
 /* Utils */
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
-void	free_map(char **map, int size);
+void	free_map(void *map, int size);
 int		is_printable(char c);
 int		tri_min(int a, int b, int c);
 void	ft_puterror(char *err);

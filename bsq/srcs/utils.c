@@ -29,17 +29,19 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	free_map(char **map, int size)
+void	free_map(void *map, int size)
 {
-	int	i;
+	int		i;
+	void	**ptr;
 
+	ptr = (void **)map;
 	i = 0;
 	while (i < size)
 	{
-		free(map[i]);
+		free(ptr[i]);
 		i++;
 	}
-	free(map);
+	free(ptr);
 }
 
 int	is_printable(char c)
